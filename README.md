@@ -66,7 +66,7 @@ Here are the steps to run the project locally.
 
 1. Make sure you have enabled the following Firebase services:
 
-   - Authentication. Enable the Google sign-in method.
+   - Authentication. Enable Google, Apple, Phone, and Email/Password sign-in methods. Apple also needs its OAuth credentials configured, and phone sign-in uses reCAPTCHA and SMS verification.
    - Cloud Firestore. Create a database and set its location to your nearest region.
    - Cloud Storage. Create a storage bucket.
 

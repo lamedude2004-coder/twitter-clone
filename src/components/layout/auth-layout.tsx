@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '@lib/context/auth-context';
-import { sleep } from '@lib/utils';
 import { Placeholder } from '@components/common/placeholder';
 import type { LayoutProps } from './common-layout';
 
@@ -12,21 +11,19 @@ export function AuthLayout({ children }: LayoutProps): JSX.Element {
   const { replace } = useRouter();
 
   useEffect(() => {
-    const checkLogin = async (): Promise<void> => {
+    if (loading) {
       setPending(true);
+      return;
+    }
 
-      if (user) {
-        await sleep(500);
-        void replace('/home');
-      } else if (!loading) {
-        await sleep(500);
-        setPending(false);
-      }
-    };
+    if (user) {
+      setPending(true);
+      void replace('/home');
+      return;
+    }
 
-    void checkLogin();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, loading]);
+    setPending(false);
+  }, [user, loading, replace]);
 
   if (loading || pending) return <Placeholder />;
 
